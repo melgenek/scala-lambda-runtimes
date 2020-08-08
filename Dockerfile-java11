@@ -1,0 +1,23 @@
+FROM amazoncorretto:11-al2-jdk
+
+ENV SBT_VERSION 1.3.13
+RUN curl -L -o sbt-$SBT_VERSION.rpm https://dl.bintray.com/sbt/rpm/sbt-$SBT_VERSION.rpm && \
+    yum install -y sbt-$SBT_VERSION.rpm && \
+    rm sbt-$SBT_VERSION.rpm
+RUN sbt sbtVersion
+
+RUN yum install -y tar gzip
+
+ENV SCALA_VERSION 2.13.3
+RUN \
+  curl -fsL https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /usr/share && \
+  mv /usr/share/scala-$SCALA_VERSION /usr/share/scala && \
+  chown -R root:root /usr/share/scala && \
+  chmod -R 755 /usr/share/scala && \
+  ln -s /usr/share/scala/bin/scala /usr/local/bin/scala
+RUN scala -version
+
+WORKDIR /opt/scala-lambda-runtimes/
+ADD . /opt/scala-lambda-runtimes/
+
+RUN sbt clean jvmLambda11/assembly

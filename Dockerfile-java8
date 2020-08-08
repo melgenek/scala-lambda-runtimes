@@ -1,0 +1,6 @@
+FROM hseeberger/scala-sbt:8u252_1.3.13_2.13.3
+
+WORKDIR /opt/scala-lambda-runtimes/
+ADD . /opt/scala-lambda-runtimes/
+
+RUN sbt clean jvmLambda8/assembly

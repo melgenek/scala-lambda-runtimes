@@ -1,0 +1,43 @@
+service:
+  name: scala-lambda-runtimes
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  memorySize: 128
+  timeout: 10
+  versionFunctions: false
+
+functions:
+  jvmLambda8:
+    runtime: java8
+    handler: hello.HelloFunction::handle
+    package:
+      artifact: lambdas/java8.jar
+  jvmLambda8Proguard:
+    runtime: java8
+    handler: hello.HelloFunction::handle
+    package:
+      artifact: lambdas/java8_proguard.jar
+  jvmLambda11:
+    runtime: java11
+    handler: hello.HelloFunction::handle
+    package:
+      artifact: lambdas/java11.jar
+  jvmLambda11JLink:
+    runtime: provided
+    handler: not.used
+    package:
+      artifact: lambdas/java11_jlink.zip
+  jsLambda:
+    runtime: nodejs12.x
+    handler: index.handle
+    package:
+      artifact: lambdas/js.zip
+  graalLambda:
+    runtime: provided
+    handler: not.used
+    package:
+      artifact: lambdas/graal.zip

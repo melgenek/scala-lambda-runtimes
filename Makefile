@@ -45,4 +45,11 @@ build_graal:
 	zip -rmj lambdas/graal.zip lambdas/graal/* && \
 	docker rm extract
 
+serverless: prepare_serverless
+	docker run -it \
+		-w "/opt/scala-lambda-runtimes/" \
+		-v ~/.aws/:/root/.aws:ro \
+		--rm --entrypoint /bin/sh lambda_serverless -c "$(command)"
 
+prepare_serverless:
+	docker build -t lambda_serverless -f Dockerfile-deploy .

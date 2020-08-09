@@ -1,0 +1,7 @@
+FROM node:14.7.0
+
+RUN npm install -g serverless
+RUN npm install -g lumigo-cli
+
+WORKDIR /opt/scala-lambda-runtimes/
+ADD . /opt/scala-lambda-runtimes/

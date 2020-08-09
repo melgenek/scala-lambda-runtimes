@@ -4,14 +4,12 @@ name := "scala-lambda-runtimes"
 
 lazy val jvmLambda8 = project.settings(
   scalaVersion := ScalaVersion,
-  scalacOptions ++= Seq("-target:8"),
   assemblyJarName in assembly := "assembly.jar"
 )
 
 lazy val jvmLambda11 = project.settings(
   scalaVersion := ScalaVersion,
   scalacOptions ++= Seq("-target:11"),
-  javacOptions ++= Seq("-source", "11", "-target", "11"),
   assemblyJarName in assembly := "assembly.jar",
 )
 
@@ -20,7 +18,6 @@ lazy val jvmLambda11JLink = project
   .settings(
     scalaVersion := ScalaVersion,
     scalacOptions ++= Seq("-target:11"),
-    javacOptions ++= Seq("-source", "11", "-target", "11"),
     topLevelDirectory := None,
     packageName in Universal := "package",
   )
